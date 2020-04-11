@@ -6,14 +6,14 @@ class Firebase {
 
 		// General Init
 		let firebaseConfig = {
-			apiKey: "AIzaSyDGTEzcebCXK3B4e--I2itLD0lBtXTQPYs",
-			authDomain: "web-chess-e5c05.firebaseapp.com",
-			databaseURL: "https://web-chess-e5c05.firebaseio.com",
-			projectId: "web-chess-e5c05",
-			storageBucket: "web-chess-e5c05.appspot.com",
-			messagingSenderId: "730184283244",
-			appId: "1:730184283244:web:34b7cb61dfe77db0049449",
-			measurementId: "G-8C72YJXJ07"
+			apiKey: "stub",
+			authDomain: "stub",
+			databaseURL: "stub",
+			projectId: "stub",
+			storageBucket: "stub",
+			messagingSenderId: "stub",
+			appId: "stub",
+			measurementId: "stub"
 		};
 		firebase.initializeApp(firebaseConfig);
 		this.db = firebase.firestore();
@@ -24,9 +24,9 @@ class Firebase {
 			signInOptions: [
 				firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 			],
-			tosUrl: 'www.bing.com',
+			tosUrl: 'www.weitungchen.com',
 			privacyPolicyUrl: function() {
-				window.location.assign('www.google.com');
+				window.location.assign('www.weitungchen.com');
 			}
 		};
 
