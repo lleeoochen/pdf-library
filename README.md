@@ -1,4 +1,4 @@
-** Firebase App Template **
+# Firebase App Template
 
 1. Start by create an empty repository on GitHub for your new app (note the repository name for step 2).
 
@@ -23,7 +23,14 @@
 		}
 
 		```
-4. For local development, change the following in `_config.yml`:
+
+4. Go to `Firebase` > `Authentication` > `Sign-in Method`.
+
+	- Enable `Google Authentication`.
+	- Add authorized domain `[Your GitHub Pages Domain]`.
+
+
+5. For local development, change the following in `_config.yml`:
 
 	- Change url and baseUrl to local settings. 
 	- (Don't commit the changes to Git...) 
