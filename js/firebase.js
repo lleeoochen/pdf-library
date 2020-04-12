@@ -7,10 +7,10 @@ class Firebase {
 		// Firebase Init
 		let firebaseConfig = null;
 
-		// if (!firebaseConfig) {
-		// 	alert("Firebase not setup. Redirecting...");
-		// 	window.location = "https://console.firebase.google.com/";
-		// }
+		if (!firebaseConfig) {
+			alert("Firebase not setup. Redirecting...");
+			window.location = "https://console.firebase.google.com/";
+		}
 
 		firebase.initializeApp(firebaseConfig);
 		this.db = firebase.firestore();
