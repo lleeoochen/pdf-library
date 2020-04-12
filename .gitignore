@@ -6,5 +6,4 @@ _site/
 .sublime-project
 Gemfile.lock
 
-app.sublime-project
 app.sublime-workspace

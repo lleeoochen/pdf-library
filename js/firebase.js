@@ -4,17 +4,14 @@ class Firebase {
 		this.db = null;
 		this.auth_user = null;
 
-		// General Init
-		let firebaseConfig = {
-			apiKey: "stub",
-			authDomain: "stub",
-			databaseURL: "stub",
-			projectId: "stub",
-			storageBucket: "stub",
-			messagingSenderId: "stub",
-			appId: "stub",
-			measurementId: "stub"
-		};
+		// Firebase Init
+		let firebaseConfig = null;
+
+		// if (!firebaseConfig) {
+		// 	alert("Firebase not setup. Redirecting...");
+		// 	window.location = "https://console.firebase.google.com/";
+		// }
+
 		firebase.initializeApp(firebaseConfig);
 		this.db = firebase.firestore();
 

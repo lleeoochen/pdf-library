@@ -1,7 +1,12 @@
 # Site variables
 title:       <site title>
 description: <site description>
-url:         '/'
+
+url:         'www.weitungchen.com' # remote url  (github/website url)
+# url:         'localhost:4000' # local url
+
+baseUrl:     'firebase-app-template' # local baseUrl (github repo name)
+# baseUrl:     '' # local baseUrl
 
 # Build settings
 markdown: kramdown
