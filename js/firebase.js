@@ -5,12 +5,16 @@ class Firebase {
 		this.auth_user = null;
 
 		// Firebase Init
-		let firebaseConfig = null;
-
-		// if (!firebaseConfig) {
-		// 	alert("Firebase not setup. Redirecting...");
-		// 	window.location = "https://console.firebase.google.com/";
-		// }
+		var firebaseConfig = {
+			apiKey: "AIzaSyD4lbQ9qEOXckuOxrGWp1ETZvmQ7-oOlJo",
+			authDomain: "pdf-library-d47b7.firebaseapp.com",
+			databaseURL: "https://pdf-library-d47b7.firebaseio.com",
+			projectId: "pdf-library-d47b7",
+			storageBucket: "pdf-library-d47b7.appspot.com",
+			messagingSenderId: "586656070466",
+			appId: "1:586656070466:web:66f579139b98a9d788a6db",
+			measurementId: "G-11Z8XRE9Y4"
+		};
 
 		firebase.initializeApp(firebaseConfig);
 		this.db = firebase.firestore();

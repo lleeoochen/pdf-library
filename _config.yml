@@ -1,11 +1,11 @@
 # Site variables
-title:       <site title>
-description: <site description>
+title:       PDF Library
+description: A website that allows users to conveniently store and view PDF books and sheet music.
 
-url:         'www.weitungchen.com' # remote url  (github/website url)
+url:         www.weitungchen.com # remote url  (github url)
 # url:         'localhost:4000' # local url
 
-baseUrl:     '/firebase-app-template' # local baseUrl (github repo name)
+baseUrl:     '/pdf-library' # local baseUrl (github repo name)
 # baseUrl:     '' # local baseUrl
 
 # Build settings
