@@ -1,0 +1,26 @@
+<meta charset="utf-8">
+
+<!-- Tab Title -->
+<title>{{ page.title }}</title>
+
+<!-- Tab Icon -->
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="plugins/css/sweetalert.css">
+<link rel="stylesheet" href="plugins/css/firebase-ui-auth.css">
+<link rel="stylesheet" href="plugins/css/bootstrap.css">
+<link rel="stylesheet" href="plugins/css/bootstrap-theme.css">
+
+<!-- Font CSS -->
+<link href="https://fonts.googleapis.com/css?family=Spectral&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/firebase.css">
+
+{% for css in page.css %}
+	<link rel="stylesheet" href="{{ css }}">
+{% endfor %}

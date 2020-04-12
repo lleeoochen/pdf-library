@@ -1,0 +1,8 @@
+# Site variables
+title:       <site title>
+description: <site description>
+url:         '/'
+
+# Build settings
+markdown: kramdown
+theme:    minima
