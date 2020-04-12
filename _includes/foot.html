@@ -13,3 +13,7 @@
 <script src="{{ site.baseUrl }}/js/const.js"></script>
 <script src="{{ site.baseUrl }}/js/utility.js"></script>
 <script src="{{ site.baseUrl }}/js/firebase.js"></script>
+
+{% for js in page.js %}
+	<script src="{{ site.baseUrl }}/{{ js }}"></script>
+{% endfor %}

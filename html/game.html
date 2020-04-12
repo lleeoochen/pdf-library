@@ -1,24 +1,24 @@
 ---
-permalink: /game.html
+permalink: /game
 title: <insert title>
+
 css:
 - "css/game.css"
+js:
+- "js/game.js"
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		{% include head.html %}
-	</head>
+	{% include head.html %}
 
 	<body>
-		{% include firebase.html %}
-
 		<div id="main-content">
+			{% comment %} TODO {% endcomment %}
 		</div>
 
-		{% include foot.html %}
+		{% include firebase.html %}
 	</body>
 
-	<script src="js/game.js"></script>
+	{% include foot.html %}
 </html>
