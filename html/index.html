@@ -14,11 +14,28 @@ js:
 
 	<body>
 		<div id="main-content">
-			{% comment %} TODO {% endcomment %}
-		</div>
+			<form id="upload-form">
+				<tr>
+					<td valign="top">
+						<label for="icon">Zip File</label>
+					</td>
+					<td valign="top">
+						<input id="upload-file" accept=".pdf" type="file" id="uploadZip" name="icon">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" style="text-align:center">
+						<button class="btn btn-primary" type="submit">Upload Zip</button>
+					</td>
+				</tr>
+			</form>
 
+			<div id="file-list">
+			</div>
+		</div>
 		{% include firebase.html %}
 	</body>
 
 	{% include foot.html %}
+
 </html>

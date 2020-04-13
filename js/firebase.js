@@ -42,12 +42,7 @@ class Firebase {
 			firebase.auth().onAuthStateChanged(auth_user => {
 				if (auth_user) {
 					self.auth_user = auth_user;
-
-					self.db.collection(USERS_TABLE).doc(self.auth_user.uid).set({
-						email: self.auth_user.email,
-						photo: self.auth_user.photoURL,
-						name: self.auth_user.displayName
-					}, { merge: true });
+					self.updateUser();
 					resolve(self.auth_user);
 				}
 				else {
@@ -55,6 +50,16 @@ class Firebase {
 				}
 			});
 		});
+	}
+
+	updateUser() {
+		let user = {
+			email: this.auth_user.email,
+			photo: this.auth_user.photoURL,
+			name: this.auth_user.displayName
+		};
+
+		this.db.collection(USERS_TABLE).doc(this.auth_user.uid).set(user, { merge: true });
 	}
 
 	getUser(id) {
