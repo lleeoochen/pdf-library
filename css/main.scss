@@ -11,6 +11,20 @@ body {
 	color: black;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+body {
+  -ms-overflow-style: none;
+}
+
+#main-content {
+	text-align: center;
+}
+
 .btn {
 	display: unset;
     margin-bottom: unset;

@@ -34,3 +34,9 @@
 
 	- Change url and baseUrl to local settings. 
 	- (Don't commit the changes to Git...) 
+
+6. To allow cors request to Firebase, run the following:
+
+	```
+	gsutil cors set cors.json gs://pdf-library-d47b7.appspot.com/
+	```

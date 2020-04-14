@@ -2,8 +2,8 @@
 ---
 class PDFLoader {
 
-	constructor(canvasId, prevId, nextId, countId, totalId) {
-		this.canvasId = canvasId;
+	constructor(canvasBoxId, prevId, nextId, countId, totalId) {
+		this.canvasBoxId = canvasBoxId;
 		this.prevId = prevId;
 		this.nextId = nextId;
 		this.countId = countId;
@@ -13,7 +13,6 @@ class PDFLoader {
 		this.pageNum = 1;
 		this.pageRendering = false;
 		this.pageNumPending = null;
-		this.canvas = document.getElementById(canvasId)
 
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
 		this.pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
@@ -31,77 +30,71 @@ class PDFLoader {
 	load(url) {
 		let self = this;
 
-		self.pdfjsLib.getDocument({
-			url: url,
-			// httpHeaders: {
-			// 	'Access-Control-Allow-Origin': 'https://firebasestorage.googleapis.com',
-			// 	'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-			// 	"Access-Control-Allow-Credentials": true
-			// },
-			// withCredentials: false
-		}).promise.then(function(_pdfDoc) {
+		self.pdfjsLib.getDocument({ url: url }).promise.then(function(_pdfDoc) {
 			self.pdfDoc = _pdfDoc;
 			$(self.totalId).text(self.pdfDoc.numPages);
 
-			self.renderPage(self.pageNum);
+			self.renderAllPages();
 		});
 	}
 
-	renderPage(num) {
+	renderAllPages() {
 		let self = this;
 
-		self.pageRendering = true;
-		self.pdfDoc.getPage(num).then(page => {
-			let viewport = page.getViewport({ scale: 1 });
-
-			self.canvas.height = viewport.height * 4;
-			self.canvas.width = viewport.width * 4;
-			self.canvas.style.height = viewport.height + 'px';
-			self.canvas.style.width = viewport.width + 'px';
-			self.canvas.getContext('2d').scale(4, 4);
-
-			var renderContext = {
-				canvasContext: this.canvas.getContext('2d'),
-				viewport: viewport
-			};
-			var renderTask = page.render(renderContext);
-
-			renderTask.promise.then(() => {
-				self.pageRendering = false;
-				if (self.pageNumPending !== null) {
-					self.renderPage(self.pageNumPending);
-					self.pageNumPending = null;
-				}
+		for (let i = 1; i <= self.pdfDoc.numPages; i++) {
+			self.pdfDoc.getPage(i).then(page => {
+				self.drawCanvas(page);
 			});
-		});
-
-		$(self.countId).text(num);
+		}
 	}
 
-	queueRenderPage(num) {
+	drawCanvas(page) {
 		let self = this;
+		let scale = 2;
 
-		if (self.pageRendering)
-			self.pageNumPending = num;
-		else
-			self.renderPage(num);
+		let viewport = page.getViewport({ scale: 1 });
+		let ratio = viewport.height / viewport.width;
+
+		let canvas = document.createElement('canvas');
+		canvas.className = 'pdf-page';
+
+		canvas.height = viewport.width * ratio * scale;
+		canvas.width = viewport.width * scale;
+
+		if (SCREEN_PORTRAIT) {
+			canvas.style.height = window.innerWidth * ratio + 'px';
+			canvas.style.width = window.innerWidth + 'px';
+		}
+		else {
+			canvas.style.height = window.innerHeight + 'px';
+			canvas.style.width = window.innerHeight / ratio + 'px';
+		}
+
+		canvas.getContext('2d').scale(scale, scale);
+		document.getElementById(self.canvasBoxId).append(canvas);
+
+		var renderContext = {
+			canvasContext: canvas.getContext('2d'),
+			viewport: viewport
+		};
+		var renderTask = page.render(renderContext);
 	}
 
 	prevPage() {
 		let self = this;
 
-		if (self.pageNum > 1) {
-			self.pageNum--;
-			self.queueRenderPage(self.pageNum);
-		}
+		// if (self.pageNum > 1) {
+		// 	self.pageNum--;
+		// 	self.queueRenderPage(self.pageNum);
+		// }
 	}
 
 	nextPage() {
-
 		let self = this;
-		if (self.pageNum < self.pdfDoc.numPages) {
-			self.pageNum++;
-			self.queueRenderPage(self.pageNum);
-		}
+
+		// if (self.pageNum < self.pdfDoc.numPages) {
+		// 	self.pageNum++;
+		// 	self.queueRenderPage(self.pageNum);
+		// }
 	}
 }
