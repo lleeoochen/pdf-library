@@ -20,3 +20,19 @@ database.authenticate().then(_auth_user => {
 		pdf_loader.load(url);
 	});
 });
+
+function onResize() {
+	$('.pdf-page').each((index, element) => {
+		let ratio = parseFloat($(element).attr('ratio'));
+
+		if (window.innerHeight > window.innerWidth) {
+			$(element).css('height', window.innerWidth * ratio + 'px');
+			$(element).css('width', window.innerWidth + 'px');
+		}
+		else {
+			$(element).css('height', window.innerHeight + 'px');
+			$(element).css('width', window.innerHeight / ratio + 'px');
+		}
+	});
+	SCREEN_PORTRAIT = window.innerHeight > window.innerWidth;
+}

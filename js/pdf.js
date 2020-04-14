@@ -57,6 +57,7 @@ class PDFLoader {
 
 		let canvas = document.createElement('canvas');
 		canvas.className = 'pdf-page';
+		canvas.setAttribute('ratio', ratio);
 
 		canvas.height = viewport.width * ratio * scale;
 		canvas.width = viewport.width * scale;

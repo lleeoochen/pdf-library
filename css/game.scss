@@ -3,16 +3,19 @@
 @media screen and (orientation: portrait) {
 	:root {
 		--game-margin: 0.1vw;
+		--game-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.2), 0 1vw 2vw 0 rgba(0, 0, 0, 0.19);
 	}
 }
 
 @media screen and (orientation: landscape) {
 	:root {
 		--game-margin: 0.1vh;
+		--game-shadow: 0 1vh 2vh 0 rgba(0, 0, 0, 0.2), 0 1vh 2vh 0 rgba(0, 0, 0, 0.19);
 	}
 }
 
 .pdf-page {
 	margin: var(--game-margin);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: var(--game-shadow);
+	transition: 0.5s;
 }
