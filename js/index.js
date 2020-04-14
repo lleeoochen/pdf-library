@@ -38,7 +38,7 @@ function updateFileList() {
 	storageRef.child(auth_user.uid).listAll().then(function(res) {
 		res.items.forEach(function(itemRef) {
 			let match_html = $(`
-				<a class="btn file-link" href="/game?file=${ itemRef.name }">
+				<a class="btn file-link" href="{{ site.baseUrl }}/game?file=${ itemRef.name }">
 					${ itemRef.name.replace(".pdf", "") }
 				</a>`
 			);
