@@ -4,7 +4,59 @@
 body {
 	font-family: 'Spectral', serif;
 
-	background-color: white;
+	background-color: #1f8e84;
 	background-size: cover;
 	background-position: center;
+
+	color: black;
+}
+
+.btn {
+	display: unset;
+    margin-bottom: unset;
+    font-weight: unset;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: unset;
+    padding: unset;
+    font-size: unset;
+    line-height: unset;
+    border-radius: unset;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.form-control {
+    display: block;
+    width: unset;
+    height: unset;
+    padding: unset;
+    font-size: unset;
+    line-height: unset;
+    color: #555555;
+    background-color: #fff;
+    background-image: none;
+    border: unset;
+    border-radius: unset;
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
+    -webkit-transition: unset;
+    -o-transition: unset;
+    -webkit-transition: unset;
+    transition: unset;
+    transition: unset;
+}
+
+label {
+    display: inline-block;
+    max-width: unset;
+    margin-bottom: unset;
+    font-weight: unset;
 }

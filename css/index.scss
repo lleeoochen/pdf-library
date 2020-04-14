@@ -2,12 +2,112 @@
 ---
 @media screen and (orientation: portrait) {
 	:root {
-		// --variable: value;
+		--home-btn-padding: 1.5vw 3vw;
+		--home-margin: 1vw;
+		--home-font-size: 4vw;
+		--home-btn-border-radius: 1vw;
+		--home-shadow: 0.5vw 0.5vw #fff, 0.6vw 0.6vw #ccc, 1vw 1vw #fff, 1.1vw 1.1vw #ccc, 1.5vw 1.5vw #fff;
+		--home-file-width: 80vw;
 	}
 }
 
 @media screen and (orientation: landscape) {
 	:root {
-		// --variable: value;
+		--home-btn-padding: 1.5vh 3vh;
+		--home-margin: 1vh;
+		--home-font-size: 3vh;
+		--home-btn-border-radius: 1vh;
+		--home-shadow: 0.5vh 0.5vh #fff, 0.6vh 0.6vh #ccc, 1vh 1vh #fff, 1.1vh 1.1vh #ccc, 1.5vh 1.5vh #fff;
+		--home-file-width: 40vh;
 	}
+}
+
+#title {
+	font-size: calc(var(--home-font-size) * 3);
+	text-align: center;
+}
+
+#main-content {
+	text-align: center;
+}
+
+#upload-form {
+	display: flex;
+	background-color: #ffffff45;
+	padding-left: 35%;
+	padding-right: 35%;
+
+	#upload-label {
+		font-size: var(--home-font-size);
+		border-radius: var(--home-btn-border-radius);
+
+		padding: var(--home-btn-padding);
+		margin: var(--home-margin);
+		margin-right: 0;
+
+		width: auto;
+		display: inline-block;
+		flex-grow: 100;
+		vertical-align: middle;
+		text-align: left;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		#upload-label-text {
+			height: 100%;
+			align-items: center;
+			display: inline-flex;
+		}
+	}
+
+	#upload-btn {
+		font-size: var(--home-font-size);
+		padding: var(--home-btn-padding);
+		border-radius: var(--home-btn-border-radius);
+		margin: var(--home-margin);
+		background-color: #2B2D6F;
+		color: white;
+	}
+}
+
+
+#file-list {
+
+	.file-link {
+		width: var(--home-file-width);
+		height: calc(var(--home-file-width) * 0.5);
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin: calc(var(--home-margin) * 3);
+		padding: calc(var(--home-margin) * 3);
+
+		background-color: #2B2D6F;
+		color: white;
+		white-space: normal;
+		box-shadow: var(--home-shadow);
+		font-size: var(--home-font-size);
+
+		&:hover {
+			transition: box-shadow 0.5s;
+			color: white;
+			background-color: #5f61bd;
+			box-shadow: 0 0 #fff, 0 0 #ccc, 0 0 #fff, 0 0 #ccc, 0 0 #fff;
+		}
+	}
+}
+
+
+.divider {
+	width: 100%;
+	height: 0.5vh;
+	line-height: 0;
+	text-align: center;
+	font-size: var(--util-title-size);
+	color: white;
+	background: linear-gradient(90deg, transparent 0%, white 40%, white 60%, transparent 100%);
+	margin: calc(var(--margin-size) * 2) 0 calc(var(--margin-size) * 2) 0;
 }

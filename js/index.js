@@ -21,9 +21,16 @@ function init() {
 		await storageRef.child(auth_user.uid + '/' + file.name).put(file);
 
 		updateFileList();
+
+		$('#upload-file').val('');
+		$('#upload-label-text').text('Select File...');
+	});
+
+	$("#upload-form").on('change', function() {
+		let file = $('#upload-file').prop('files')[0];
+		$('#upload-label-text').text(file.name);
 	});
 }
-
 
 function updateFileList() {
 	$('#file-list').html('');
@@ -31,10 +38,12 @@ function updateFileList() {
 	storageRef.child(auth_user.uid).listAll().then(function(res) {
 		res.items.forEach(function(itemRef) {
 			let match_html = $(`
-                <h3> ${ itemRef.name } </h3>`
-            );
+				<a class="btn file-link" href="/game?file=${ itemRef.name }">
+					${ itemRef.name.replace(".pdf", "") }
+				</a>`
+			);
 
-            $('#file-list').append(match_html);
+			$('#file-list').append(match_html);
 		});
 	});
 }

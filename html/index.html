@@ -10,32 +10,28 @@ js:
 
 <!DOCTYPE html>
 <html lang="en">
-	{% include head.html %}
+{% include head.html %}
 
-	<body>
-		<div id="main-content">
-			<form id="upload-form">
-				<tr>
-					<td valign="top">
-						<label for="icon">Zip File</label>
-					</td>
-					<td valign="top">
-						<input id="upload-file" accept=".pdf" type="file" id="uploadZip" name="icon">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5" style="text-align:center">
-						<button class="btn btn-primary" type="submit">Upload Zip</button>
-					</td>
-				</tr>
-			</form>
+<body>
+	<div id="main-content">
+		<div id="title"> PDF Library </div>
 
-			<div id="file-list">
-			</div>
+		<!-- <div class="divider"></div> -->
+
+		<form id="upload-form">
+			<label id="upload-label" class="form-control" type="text" for="upload-file" readonly>
+				<div id="upload-label-text">Select File...</div>
+			</label>
+			<input id="upload-file" class="form-control hidden" accept=".pdf" type="file">
+			<button id="upload-btn" class="btn" type="submit">Upload</button>
+		</form>
+
+		<div id="file-list">
 		</div>
-		{% include firebase.html %}
-	</body>
+	</div>
 
-	{% include foot.html %}
+	{% include firebase.html %}
+</body>
 
+{% include foot.html %}
 </html>
