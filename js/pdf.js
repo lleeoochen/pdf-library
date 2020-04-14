@@ -15,7 +15,7 @@ class PDFLoader {
 		this.pageNumPending = null;
 
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
-		this.pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ site.baseUrl }}/plugins/js/pdf/pdf.worker.js";
 
 		let self = this;
 		$(this.prevId).on('click', () => {

@@ -10,6 +10,8 @@ var pdf_loader = new PDFLoader(canvasBoxId='pdf-pages',
 
 var storageRef;
 var filename = Util.getParam('file');
+var zoom_factor = 1.1;
+var idleTime = 0;
 
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
@@ -22,17 +24,66 @@ database.authenticate().then(_auth_user => {
 });
 
 function onResize() {
-	$('.pdf-page').each((index, element) => {
-		let ratio = parseFloat($(element).attr('ratio'));
+	let portrait = window.innerHeight > window.innerWidth;
 
-		if (window.innerHeight > window.innerWidth) {
-			$(element).css('height', window.innerWidth * ratio + 'px');
-			$(element).css('width', window.innerWidth + 'px');
-		}
-		else {
-			$(element).css('height', window.innerHeight + 'px');
-			$(element).css('width', window.innerHeight / ratio + 'px');
-		}
+	if (SCREEN_PORTRAIT ^ portrait) {
+		$('.pdf-page').each((index, element) => {
+			let ratio = parseFloat($(element).attr('ratio'));
+
+			if (portrait) {
+				$(element).css('height', window.innerWidth * ratio + 'px');
+				$(element).css('width', window.innerWidth + 'px');
+			}
+			else {
+				$(element).css('height', window.innerHeight + 'px');
+				$(element).css('width', window.innerHeight / ratio + 'px');
+			}
+		});
+	}
+
+	SCREEN_PORTRAIT = portrait;
+}
+
+$('#zoom-in-btn').on('click', () => {
+	$('.pdf-page').each((index, element) => {
+		let factor = zoom_factor;
+		$(element).css('height', $(element).height() * factor + 'px');
+		$(element).css('width', $(element).width() * factor + 'px');
 	});
-	SCREEN_PORTRAIT = window.innerHeight > window.innerWidth;
+});
+
+$('#zoom-out-btn').on('click', () => {
+	$('.pdf-page').each((index, element) => {
+		let factor = 1 / zoom_factor;
+		$(element).css('height', $(element).height() * factor + 'px');
+		$(element).css('width', $(element).width() * factor + 'px');
+	});
+});
+
+$(document).ready(function () {
+	var idleInterval = setInterval(() => {
+		if (idleTime > 1) fadeUtility(false);
+		else idleTime = idleTime + 1;
+	}, 500);
+
+	$(this).mousemove(function (e) {
+		idleTime = 0;
+		fadeUtility(true);
+	});
+
+	$(this).scroll(function (e) {
+		idleTime = 0;
+		fadeUtility(true);
+	});
+});
+
+function fadeUtility(fadeIn) {
+	if (fadeIn) {
+		$('#utility-section').removeClass('fade-out');
+		$('#utility-section').addClass('fade-in');
+	}
+	else {
+		$('#utility-section').removeClass('fade-in');
+		$('#utility-section').addClass('fade-out');
+	}
 }

@@ -76,6 +76,7 @@
 	.file-link {
 		width: var(--home-file-width);
 		height: calc(var(--home-file-width) * 0.5);
+		border-radius: var(--home-btn-border-radius);
 
 		display: inline-flex;
 		align-items: center;

@@ -2,20 +2,56 @@
 ---
 @media screen and (orientation: portrait) {
 	:root {
-		--game-margin: 0.1vw;
+		--game-margin: 4vw;
+		--game-page-margin: 0.1vw;
 		--game-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.2), 0 1vw 2vw 0 rgba(0, 0, 0, 0.19);
+		--game-btn-size: 12vw;
 	}
 }
 
 @media screen and (orientation: landscape) {
 	:root {
-		--game-margin: 0.1vh;
+		--game-margin: 2vh;
+		--game-page-margin: 0.1vh;
 		--game-shadow: 0 1vh 2vh 0 rgba(0, 0, 0, 0.2), 0 1vh 2vh 0 rgba(0, 0, 0, 0.19);
+		--game-btn-size: 8vh;
 	}
 }
 
+body {
+	background-color: darkslategrey;
+}
+
 .pdf-page {
-	margin: var(--game-margin);
+	margin: var(--game-page-margin);
 	box-shadow: var(--game-shadow);
-	transition: 0.5s;
+}
+
+#utility-section {
+	display: grid;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	transition: 3s;
+
+	.utility-btn {
+		width: var(--game-btn-size);
+		height: var(--game-btn-size);
+		border-radius: calc(var(--game-btn-size) * 0.5);
+		background-color: #FFFFFF4F;
+		margin: var(--game-margin);
+		margin-top: 0;
+		box-shadow: var(--game-shadow);
+
+		img {
+			width: 60%;
+			height: 60%;
+			vertical-align: unset;
+			margin: 20% 20%;
+		}
+
+		&:hover {
+			background-color: white;
+		}
+	}
 }

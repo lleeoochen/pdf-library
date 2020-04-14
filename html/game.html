@@ -15,17 +15,15 @@ js:
 
 <body onresize="onResize()">
 	<div id="main-content">
-		<!-- <h1>PDF.js Previous/Next example</h1> -->
 
-		<div>
-			<!-- <button id="prev">Previous</button> -->
-			<!-- <button id="next">Next</button> -->
-			<!-- &nbsp; &nbsp; -->
-			<!-- <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span> -->
+		<div id="pdf-pages"></div>
+
+		<div id="utility-section" class="fade-in">
+			<a id="home-btn" class="btn utility-btn" href="{{ site.baseUrl }}/"><img src="{{ site.baseUrl }}/assets/home.png" /></a>
+			<div id="zoom-in-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/plus.png" /></div>
+			<div id="zoom-out-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/minus.png" /></div>
 		</div>
 
-		<div id="pdf-pages">
-		</div>
 	</div>
 
 	{% include firebase.html %}
