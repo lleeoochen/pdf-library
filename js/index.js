@@ -4,7 +4,6 @@ var storageRef;
 
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
-	storageRef = firebase.storage().ref();
 
 	init();
 

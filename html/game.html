@@ -5,20 +5,32 @@ title: <insert title>
 css:
 - "css/game.css"
 js:
+- "js/pdf.js"
 - "js/game.js"
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	{% include head.html %}
+{% include head.html %}
 
-	<body>
-		<div id="main-content">
-			{% comment %} TODO {% endcomment %}
+<body>
+	<div id="main-content">
+		<!-- <h1>PDF.js Previous/Next example</h1> -->
+
+		<div>
+			<!-- <button id="prev">Previous</button> -->
+			<!-- <button id="next">Next</button> -->
+			<!-- &nbsp; &nbsp; -->
+			<!-- <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span> -->
 		</div>
 
-		{% include firebase.html %}
-	</body>
+		<img id="myimg"/>
 
-	{% include foot.html %}
+		<canvas id="the-canvas"></canvas>
+	</div>
+
+	{% include firebase.html %}
+</body>
+
+{% include foot.html %}
 </html>
