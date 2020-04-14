@@ -7,7 +7,8 @@
 		--home-font-size: 4vw;
 		--home-btn-border-radius: 1vw;
 		--home-shadow: 0.5vw 0.5vw #fff, 0.6vw 0.6vw #ccc, 1vw 1vw #fff, 1.1vw 1.1vw #ccc, 1.5vw 1.5vw #fff;
-		--home-file-width: 80vw;
+		--home-file-width: 43vw;
+		--home-upload-form-padding: 0 0%;
 	}
 }
 
@@ -19,6 +20,7 @@
 		--home-btn-border-radius: 1vh;
 		--home-shadow: 0.5vh 0.5vh #fff, 0.6vh 0.6vh #ccc, 1vh 1vh #fff, 1.1vh 1.1vh #ccc, 1.5vh 1.5vh #fff;
 		--home-file-width: 40vh;
+		--home-upload-form-padding: 0 25%;
 	}
 }
 
@@ -34,8 +36,7 @@
 #upload-form {
 	display: flex;
 	background-color: #ffffff45;
-	padding-left: 35%;
-	padding-right: 35%;
+	padding: var(--home-upload-form-padding);
 
 	#upload-label {
 		font-size: var(--home-font-size);
@@ -74,6 +75,7 @@
 
 
 #file-list {
+	margin-bottom: calc(var(--home-margin) * 2);
 
 	.file-link {
 		width: var(--home-file-width);
