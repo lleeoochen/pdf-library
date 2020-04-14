@@ -1,5 +1,5 @@
-
-
+---
+---
 class PDFLoader {
 
 	constructor(canvasId, prevId, nextId, countId, totalId) {

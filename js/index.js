@@ -1,3 +1,5 @@
+---
+---
 var auth_user;
 var database = new Firebase();
 var storageRef;

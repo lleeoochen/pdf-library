@@ -1,3 +1,5 @@
+---
+---
 class Util {
 	// https://stackoverflow.com/a/21903119
 	static getParam(sParam) {

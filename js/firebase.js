@@ -1,3 +1,5 @@
+---
+---
 class Firebase {
 
 	constructor() {
