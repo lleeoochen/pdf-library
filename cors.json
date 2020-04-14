@@ -1,0 +1,10 @@
+[
+  {
+    "origin": ["https://weitungchen.com", "http://localhost:8000"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
+
+// Execute to allow cors for the above origins:
+// $ gsutil cors set cors.json gs://pdf-library-d47b7.appspot.com/

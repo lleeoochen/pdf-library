@@ -17,9 +17,6 @@ class PDFLoader {
 
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
 		this.pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-		this.pdfjsLib.httpHeaders = {
-			'Access-Control-Allow-Origin': true
-		};
 
 		let self = this;
 		$(this.prevId).on('click', () => {
@@ -34,7 +31,15 @@ class PDFLoader {
 	load(url) {
 		let self = this;
 
-		self.pdfjsLib.getDocument(url).promise.then(function(_pdfDoc) {
+		self.pdfjsLib.getDocument({
+			url: url,
+			// httpHeaders: {
+			// 	'Access-Control-Allow-Origin': 'https://firebasestorage.googleapis.com',
+			// 	'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+			// 	"Access-Control-Allow-Credentials": true
+			// },
+			// withCredentials: false
+		}).promise.then(function(_pdfDoc) {
 			self.pdfDoc = _pdfDoc;
 			$(self.totalId).text(self.pdfDoc.numPages);
 
