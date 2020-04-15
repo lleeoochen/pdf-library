@@ -7,21 +7,28 @@ var pdf_loader = new PDFLoader(container='pdf-pages')
 var storageRef;
 var filename = Util.getParam('file');
 var zoom_factor = 1.05;
-var idleTime = 0;
+var idle_time = 0;
+var loaded = false;
+var full_screen = false;
+
+$('head title', window.parent.document).text(filename.replace('.pdf', ''));
 
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
 
 	storageRef = firebase.storage().ref();
-	storageRef.child(auth_user.uid + '/' + filename).getDownloadURL().then(function(url) {
-		pdf_loader.load(url);
+	storageRef.child(auth_user.uid + '/' + filename).getDownloadURL().then(async url => {
+		await pdf_loader.load(url);
+		loaded = true;
 	});
 });
 
 function onResize() {
 	let portrait = window.innerHeight > window.innerWidth;
 
-	if (SCREEN_PORTRAIT ^ portrait) {
+	if ((SCREEN_PORTRAIT && !portrait) || (!SCREEN_PORTRAIT && portrait)) {
+		SCREEN_PORTRAIT = portrait;
+
 		$('.pdf-page').each((index, element) => {
 			let ratio = parseFloat($(element).attr('ratio'));
 
@@ -35,8 +42,6 @@ function onResize() {
 			}
 		});
 	}
-
-	SCREEN_PORTRAIT = portrait;
 }
 
 $('#zoom-in-btn').on('click', () => {
@@ -55,19 +60,41 @@ $('#zoom-out-btn').on('click', () => {
 	});
 });
 
+$('#full-screen-btn').on('click', () => {
+	if (full_screen)
+		closeFullscreen().then(() => resizeToFit());
+	else
+		openFullscreen().then(() => resizeToFit());
+	full_screen = !full_screen;
+});
+
+function resizeToFit() {
+	$('.pdf-page').each((index, element) => {
+		let ratio = parseFloat($(element).attr('ratio'));
+
+		if (SCREEN_PORTRAIT) {
+			$(element).css('height', window.innerWidth * ratio + 'px');
+			$(element).css('width', window.innerWidth + 'px');
+		}
+		else {
+			$(element).css('height', window.innerHeight + 'px');
+			$(element).css('width', window.innerHeight / ratio + 'px');
+		}
+	});
+}
+
 $(document).ready(function () {
-	var idleInterval = setInterval(() => {
-		if (idleTime > 1) fadeUtility(false);
-		else idleTime = idleTime + 1;
+	setInterval(() => {
+		if (loaded) {
+			if (idle_time > 1)
+				fadeUtility(false);
+			else
+				idle_time = idle_time + 1;	
+		}
 	}, 500);
 
-	$(this).mousemove(function (e) {
-		idleTime = 0;
-		fadeUtility(true);
-	});
-
-	$(this).scroll(function (e) {
-		idleTime = 0;
+	$(this).on('mousemove scroll click', function (e) {
+		idle_time = 0;
 		fadeUtility(true);
 	});
 });
@@ -81,4 +108,36 @@ function fadeUtility(fadeIn) {
 		$('#utility-section').removeClass('fade-in');
 		$('#utility-section').addClass('fade-out');
 	}
+}
+
+function openFullscreen() {
+	let elem = document.documentElement;
+	if (elem.requestFullscreen)
+		return elem.requestFullscreen();
+
+	else if (elem.mozRequestFullScreen) /* Firefox */
+		return elem.mozRequestFullScreen();
+
+	else if (elem.webkitRequestFullscreen) /* Chrome, Safari and Opera */
+		return elem.webkitRequestFullscreen();
+
+	else if (elem.msRequestFullscreen) /* IE/Edge */
+		return elem.msRequestFullscreen();
+	return Promise.resolve();
+}
+
+function closeFullscreen() {
+	let elem = document.documentElement;
+	if (document.exitFullscreen)
+		return document.exitFullscreen();
+
+	else if (document.mozCancelFullScreen) /* Firefox */
+		return document.mozCancelFullScreen();
+
+	else if (document.webkitExitFullscreen) /* Chrome, Safari and Opera */
+		return document.webkitExitFullscreen();
+
+	else if (document.msExitFullscreen) /* IE/Edge */
+		return document.msExitFullscreen();
+	return Promise.resolve();
 }

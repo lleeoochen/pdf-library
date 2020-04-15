@@ -18,7 +18,6 @@ function init() {
 	$('#upload-form').on("submit", async e => {
 		e.preventDefault();
 
-
 		let files = $('#upload-file').prop('files');
 		let db_promises = [];
 
@@ -28,7 +27,6 @@ function init() {
 		}
 
 		await Promise.all(db_promises);
-		console.log("all done!");
 
 		updateFileList();
 

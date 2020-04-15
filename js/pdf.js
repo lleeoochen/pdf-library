@@ -14,10 +14,10 @@ class PDFLoader {
 		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ site.baseUrl }}/plugins/js/pdf/pdf.worker.js";
 	}
 
-	load(url) {
+	async load(url) {
 		let self = this;
 
-		self.pdfjsLib.getDocument({ url: url }).promise.then(function(_pdfDoc) {
+		await self.pdfjsLib.getDocument({ url: url }).promise.then(function(_pdfDoc) {
 			self.pdfDoc = _pdfDoc;
 			$(self.totalId).text(self.pdfDoc.numPages);
 
