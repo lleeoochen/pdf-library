@@ -18,8 +18,17 @@ function init() {
 	$('#upload-form').on("submit", async e => {
 		e.preventDefault();
 
-		let file = $('#upload-file').prop('files')[0];
-		await storageRef.child(auth_user.uid + '/' + file.name).put(file);
+
+		let files = $('#upload-file').prop('files');
+		let db_promises = [];
+
+		for (let i = 0; i < files.length; i++) {
+		    let file = files[i];
+			db_promises.push(storageRef.child(auth_user.uid + '/' + file.name).put(file));
+		}
+
+		await Promise.all(db_promises);
+		console.log("all done!");
 
 		updateFileList();
 
