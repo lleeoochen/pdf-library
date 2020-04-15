@@ -23,7 +23,6 @@ body {
 }
 
 .pdf-page {
-	margin: var(--game-page-margin);
 	box-shadow: var(--game-shadow);
 }
 
@@ -50,8 +49,8 @@ body {
 			margin: 20% 20%;
 		}
 
-		&:hover {
-			background-color: white;
-		}
+		// &:hover {
+		// 	background-color: white;
+		// }
 	}
 }

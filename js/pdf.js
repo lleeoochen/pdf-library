@@ -2,12 +2,8 @@
 ---
 class PDFLoader {
 
-	constructor(canvasBoxId, prevId, nextId, countId, totalId) {
-		this.canvasBoxId = canvasBoxId;
-		this.prevId = prevId;
-		this.nextId = nextId;
-		this.countId = countId;
-		this.totalId = totalId;
+	constructor(container) {
+		this.container = container;
 
 		this.pdfDoc = null;
 		this.pageNum = 1;
@@ -16,15 +12,6 @@ class PDFLoader {
 
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
 		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ site.baseUrl }}/plugins/js/pdf/pdf.worker.js";
-
-		let self = this;
-		$(this.prevId).on('click', () => {
-			self.prevPage();
-		});
-
-		$(this.nextId).on('click', () => {
-			self.nextPage();
-		});
 	}
 
 	load(url) {
@@ -72,7 +59,7 @@ class PDFLoader {
 		}
 
 		canvas.getContext('2d').scale(scale, scale);
-		document.getElementById(self.canvasBoxId).append(canvas);
+		document.getElementById(self.container).append(canvas);
 
 		var renderContext = {
 			canvasContext: canvas.getContext('2d'),
@@ -81,21 +68,4 @@ class PDFLoader {
 		var renderTask = page.render(renderContext);
 	}
 
-	prevPage() {
-		let self = this;
-
-		// if (self.pageNum > 1) {
-		// 	self.pageNum--;
-		// 	self.queueRenderPage(self.pageNum);
-		// }
-	}
-
-	nextPage() {
-		let self = this;
-
-		// if (self.pageNum < self.pdfDoc.numPages) {
-		// 	self.pageNum++;
-		// 	self.queueRenderPage(self.pageNum);
-		// }
-	}
 }

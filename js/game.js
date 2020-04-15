@@ -2,22 +2,17 @@
 ---
 var auth_user;
 var database = new Firebase();
-var pdf_loader = new PDFLoader(canvasBoxId='pdf-pages',
-							   prevId='#prev',
-							   nextId='#next',
-							   countId='#page_num',
-							   totalId='#page_count');
+var pdf_loader = new PDFLoader(container='pdf-pages')
 
 var storageRef;
 var filename = Util.getParam('file');
-var zoom_factor = 1.1;
+var zoom_factor = 1.05;
 var idleTime = 0;
 
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
 
 	storageRef = firebase.storage().ref();
-
 	storageRef.child(auth_user.uid + '/' + filename).getDownloadURL().then(function(url) {
 		pdf_loader.load(url);
 	});
