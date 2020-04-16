@@ -16,18 +16,21 @@ js:
 	<div id="main-content">
 		<div id="title"> PDF Library </div>
 
-		<!-- <div class="divider"></div> -->
-
-		<form id="upload-form">
-			<label id="upload-label" class="form-control" type="text" for="upload-file" readonly>
-				<div id="upload-label-text">Select File...</div>
-			</label>
-			<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
-			<button id="upload-btn" class="btn" type="submit">Upload</button>
-		</form>
-
-		<div id="file-list">
+		<div id="toolbar">
+			<form id="upload-form">
+				<label id="upload-label" class="form-control textfield" type="text" for="upload-file" readonly>
+					<div id="upload-label-text">Select File...</div>
+				</label>
+				<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
+				<button id="upload-btn" class="btn" type="submit">Upload</button>
+			</form>
+			<form id="new-folder-form">
+				<input id="new-folder-text" class="form-control textfield" type="text" placeholder="Folder name...">
+				<button id="new-folder-btn" class="btn" type="submit">Folder</button>
+			</form>
 		</div>
+
+		<div id="file-list"></div>
 	</div>
 
 	{% include firebase.html %}

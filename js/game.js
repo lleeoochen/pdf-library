@@ -11,13 +11,13 @@ var idle_time = 0;
 var loaded = false;
 var full_screen = false;
 
-$('head title', window.parent.document).text(filename.replace('.pdf', ''));
+$('head title', window.parent.document).text(filename.split('/').pop().replace('.pdf', ''));
 
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
 
 	storageRef = firebase.storage().ref();
-	storageRef.child(auth_user.uid + '/' + filename).getDownloadURL().then(async url => {
+	storageRef.child(filename).getDownloadURL().then(async url => {
 		await pdf_loader.load(url);
 		loaded = true;
 	});

@@ -44,4 +44,21 @@ class Util {
 		var strTime = (date.getMonth() + 1) + "/" + date.getDate() + " " + hours + ':' + minutes + ampm;
 		return strTime;
 	}
+
+	// Send web request
+	static request(url) {
+		return new Promise((resolve, reject) => {
+			var xhr = new XMLHttpRequest();
+			xhr.responseType = 'arraybuffer';
+			xhr.onload = function(event) {
+				resolve(xhr.response);
+			};
+			xhr.open('GET', url);
+			xhr.send();
+		});
+	}
+
+	static escape(str) {
+		return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+	}
 }
