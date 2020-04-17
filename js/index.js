@@ -12,9 +12,6 @@ database.authenticate().then(_auth_user => {
 
 	init();
 
-	if (document.location.hash == '')
-		document.location.hash = auth_user.uid;
-
 	unhashPath();
 });
 
@@ -108,7 +105,7 @@ function updateFileList() {
 }
 
 function enterFolder(folder) {
-	document.location.hash += "/" + folder;
+	document.location.hash += path.length > 1 ? "/" + folder : folder;
 }
 
 function allowDrop(e) {
@@ -149,16 +146,26 @@ function move(old_file_path, new_file_path) {
 window.onhashchange = unhashPath;
 
 function unhashPath() {
-	path = decodeURI(document.location.hash).replace('#', '').split('/');
+	// Redirect wrong path
+	if (document.location.hash.includes(auth_user.uid)) {
+		document.location.hash = document.location.hash.replace('#' + auth_user.uid, '');
+		return;
+	}
 
-	let folder = path[path.length - 1];
-	if (folder == '..') {
+	// Parse path
+	path = decodeURI(document.location.hash).replace('#', '').split('/').filter(n => n != '');
+	path.unshift(auth_user.uid);
+
+	// Parse parent directory
+	if (path[path.length - 1] == '..') {
 		document.location.hash = path.splice(0, path.length - 2).join('/');
-	}
-	else {
-		updateFileList();
+		return;
 	}
 
+	// Update file list
+	updateFileList();
+
+	// Show/hide back button
 	$('#back-btn').toggleClass('hidden', path.length <= 1);
 }
 

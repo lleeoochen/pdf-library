@@ -28,6 +28,10 @@
 	}
 }
 
+body {
+	background-image: url({{ site.baseUrl }}/assets/background.jpg);
+}
+
 .white {
 	color: white;
 }
