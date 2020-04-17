@@ -12,7 +12,10 @@ database.authenticate().then(_auth_user => {
 
 	init();
 
-	updateFileList();
+	if (document.location.hash == '')
+		document.location.hash = auth_user.uid;
+
+	unhashPath();
 });
 
 function init() {
@@ -20,6 +23,7 @@ function init() {
 
 	$('#upload-form').on("submit", async e => {
 		e.preventDefault();
+		loading(true);
 
 		let files = $('#upload-file').prop('files');
 		let db_promises = [];
@@ -29,12 +33,14 @@ function init() {
 			db_promises.push(storageRef.child(path.join('/') + '/' + file.name).put(file));
 		}
 
+		$('#upload-file').val('');
+		$('#upload-label-text').text('Select File...');
+		$("#new-file-modal").modal('hide');
+
 		await Promise.all(db_promises);
 
 		updateFileList();
-
-		$('#upload-file').val('');
-		$('#upload-label-text').text('Select File...');
+		loading(false);
 	});
 
 	$("#upload-form").on('change', function() {
@@ -44,29 +50,30 @@ function init() {
 
 	$("#new-folder-form").on('submit', async e => {
 		e.preventDefault();
+		loading(true);
 
 		let folder_name = $('#new-folder-text').val();
+
+		$('#new-folder-text').val('');
+		$("#new-folder-modal").modal('hide');
+
 		await storageRef.child(path.join('/') + '/' + folder_name + '/x').put(new Uint8Array([0x00]));
 
 		updateFileList();
+		loading(false);
+	});
 
-		$('#new-folder-text').val('');
+	$("#new-file-btn").on('click', () => {
+		$("#new-file-modal").modal('show');
+	});
+
+	$("#new-folder-btn").on('click', () => {
+		$("#new-folder-modal").modal('show');
 	});
 }
 
 function updateFileList() {
 	$('#file-list').html('');
-
-	if (path.length > 1) {
-		$('#file-list').append($(`
-			<div class="btn folder-link back-link"
-			     ondrop="drop(event, '..')"
-			     ondragover="allowDrop(event)"
-			     onclick="enterFolder('..')">
-				<img src="{{ site.baseUrl }}/assets/back.png" />
-			</div>`
-		));
-	}
 
 	storageRef.child(path.join('/')).listAll().then(function(res) {
 		res.prefixes.forEach(function(folderRef) {
@@ -93,15 +100,15 @@ function updateFileList() {
 				</a>`
 			));
 		});
+	}).then(() => {
+		if ($('#file-list').html() == '') {
+			$('#file-list').html('<div class="sub-title">No existing file.</div>');
+		}
 	});
 }
 
 function enterFolder(folder) {
-	if (folder == '..')
-		path.pop(folder);
-	else
-		path.push(folder);
-	updateFileList();
+	document.location.hash += "/" + folder;
 }
 
 function allowDrop(e) {
@@ -128,11 +135,46 @@ function drop(e, folder) {
 }
 
 function move(old_file_path, new_file_path) {
+	loading(true);
 	storageRef.child(old_file_path).getDownloadURL().then(url => {
 		Util.request(url).then(async data => {
 			await storageRef.child(new_file_path).put(data);
 			await storageRef.child(old_file_path).delete();
 			updateFileList();
+			loading(false);
 		});
 	});
+}
+
+window.onhashchange = unhashPath;
+
+function unhashPath() {
+	path = decodeURI(document.location.hash).replace('#', '').split('/');
+
+	let folder = path[path.length - 1];
+	if (folder == '..') {
+		document.location.hash = path.splice(0, path.length - 2).join('/');
+	}
+	else {
+		updateFileList();
+	}
+
+	$('#back-btn').toggleClass('hidden', path.length <= 1);
+}
+
+$(".modal").on("shown.bs.modal", e => {
+	$(e.target).css('display', 'flex');
+});
+
+
+function loading(toLoad) {
+	if (toLoad) {
+		$('#loading-modal').modal({
+		  backdrop: 'static',
+		  keyboard: false
+		});
+	}
+	else {
+		$('#loading-modal').modal('hide');
+	}
 }

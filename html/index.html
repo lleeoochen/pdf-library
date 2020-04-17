@@ -14,23 +14,68 @@ js:
 
 <body>
 	<div id="main-content">
-		<div id="title"> PDF Library </div>
+		<div class="title"> PDF Library </div>
 
 		<div id="toolbar">
-			<form id="upload-form">
-				<label id="upload-label" class="form-control textfield" type="text" for="upload-file" readonly>
-					<div id="upload-label-text">Select File...</div>
-				</label>
-				<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
-				<button id="upload-btn" class="btn" type="submit">Upload</button>
-			</form>
-			<form id="new-folder-form">
-				<input id="new-folder-text" class="form-control textfield" type="text" placeholder="Folder name...">
-				<button id="new-folder-btn" class="btn" type="submit">Folder</button>
-			</form>
 		</div>
 
 		<div id="file-list"></div>
+
+		<div id="utility-section">
+			<div id="back-btn" class="btn utility-btn folder-link back-link"
+			     ondrop="drop(event, '..')"
+			     ondragover="allowDrop(event)"
+			     onclick="enterFolder('..')">
+				<img src="{{ site.baseUrl }}/assets/back.png" />
+			</div>
+			<div id="new-file-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/file.png" /></div>
+			<div id="new-folder-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/folder.png" /></div>
+		</div>
+
+		<div id="loading-modal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-body">
+			<div id="main-content">
+				<div class="title white"> Processing... </div>
+			</div>
+			</div>
+			</div>
+			</div>
+		</div>
+
+		<div id="new-file-modal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-body">
+			<div id="main-content">
+				<form id="upload-form" class="utility-form">
+					<label id="upload-label" class="form-control textfield" type="text" for="upload-file" readonly>
+						<div id="upload-label-text">Select File...</div>
+					</label>
+					<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
+					<button id="upload-btn" class="btn" type="submit">Upload</button>
+				</form>
+			</div>
+			</div>
+			</div>
+			</div>
+		</div>
+
+		<div id="new-folder-modal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-body">
+			<div id="main-content">
+				<form id="new-folder-form" class="utility-form">
+					<input id="new-folder-text" class="form-control textfield" type="text" placeholder="Folder name...">
+					<button class="btn" type="submit">Folder</button>
+				</form>
+			</div>
+			</div>
+			</div>
+			</div>
+		</div>
 	</div>
 
 	{% include firebase.html %}
