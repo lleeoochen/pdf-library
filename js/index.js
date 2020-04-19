@@ -2,7 +2,7 @@
 ---
 var auth_user;
 var database = new Firebase();
-var storageRef;
+var storage = new FirebaseStorage();
 var path = [];
 
 database.authenticate().then(_auth_user => {
@@ -16,8 +16,6 @@ database.authenticate().then(_auth_user => {
 });
 
 function init() {
-	storageRef = firebase.storage().ref();
-
 	$('#upload-form').on("submit", async e => {
 		e.preventDefault();
 		loading(true);
@@ -27,7 +25,7 @@ function init() {
 
 		for (let i = 0; i < files.length; i++) {
 		    let file = files[i];
-			db_promises.push(storageRef.child(path.join('/') + '/' + file.name).put(file));
+			db_promises.push(storage.add(path.join('/') + '/' + file.name, file));
 		}
 
 		$('#upload-file').val('');
@@ -54,7 +52,7 @@ function init() {
 		$('#new-folder-text').val('');
 		$("#new-folder-modal").modal('hide');
 
-		await storageRef.child(path.join('/') + '/' + folder_name + '/x').put(new Uint8Array([0x00]));
+		await storage.add(path.join('/') + '/' + folder_name + '/x', new Uint8Array([0x00]));
 
 		updateFileList();
 		loading(false);
@@ -72,32 +70,33 @@ function init() {
 function updateFileList() {
 	$('#file-list').html('');
 
-	storageRef.child(path.join('/')).listAll().then(function(res) {
-		res.prefixes.forEach(function(folderRef) {
+	storage.list(path.join('/')).then(data => {
+		data.folders.forEach(folder => {
 			$('#file-list').append($(`
 				<div class="btn folder-link"
-				     ondrop="drop(event, '${ Util.escape(folderRef.name) }')"
+				     ondrop="drop(event, '${ Util.escape(folder.name) }')"
 				     ondragover="allowDrop(event)"
-				     onclick="enterFolder('${ Util.escape(folderRef.name) }')">
-					${ folderRef.name }
+				     onclick="enterFolder('${ Util.escape(folder.name) }')">
+					${ folder.name }
 				</div>`
 			));
 		});
 
-		res.items.forEach(function(itemRef) {
-			if (itemRef.name == 'x') return;
+		data.files.forEach(file => {
+			if (file.name == 'x') return;
 
 			$('#file-list').append($(`
 				<a class="btn file-link"
-				   href="{{ site.baseUrl }}/game?file=${ path.join('/') + '/' + itemRef.name }"
+				   href="{{ site.baseUrl }}/game?file=${ path.join('/') + '/' + file.name }"
 				   target="_blank"
 				   draggable="true"
-				   ondragstart="drag(event, '${ Util.escape(itemRef.name) }')">
-					${ itemRef.name.replace(".pdf", "") }
+				   ondragstart="drag(event, '${ Util.escape(file.name) }')">
+					${ file.name.replace(".pdf", "") }
 				</a>`
 			));
 		});
-	}).then(() => {
+	})
+	.then(() => {
 		if ($('#file-list').html() == '') {
 			$('#file-list').html('<div class="sub-title">No existing file.</div>');
 		}
@@ -133,13 +132,9 @@ function drop(e, folder) {
 
 function move(old_file_path, new_file_path) {
 	loading(true);
-	storageRef.child(old_file_path).getDownloadURL().then(url => {
-		Util.request(url).then(async data => {
-			await storageRef.child(new_file_path).put(data);
-			await storageRef.child(old_file_path).delete();
-			updateFileList();
-			loading(false);
-		});
+	storage.move(old_file_path, new_file_path).then(() => {
+		updateFileList();
+		loading(false);
 	});
 }
 
