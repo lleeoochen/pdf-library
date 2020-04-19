@@ -15,7 +15,6 @@ js:
 
 <body onresize="onResize()">
 	<div id="main-content">
-
 		<div id="pdf-pages"></div>
 
 		<div id="utility-section" class="fade-in">
@@ -24,10 +23,9 @@ js:
 			<div id="full-screen-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/full-screen.png" /></div>
 			<div id="zoom-out-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/minus.png" /></div>
 		</div>
-
 	</div>
 
-	{% include firebase.html %}
+	{% include modal.html id="firebase-modal" %}
 </body>
 
 {% include foot.html %}

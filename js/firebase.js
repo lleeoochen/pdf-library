@@ -7,7 +7,7 @@ class Firebase {
 		this.auth_user = null;
 
 		// Firebase Init
-		var firebaseConfig = {
+		let firebaseConfig = {
 			apiKey: "AIzaSyD4lbQ9qEOXckuOxrGWp1ETZvmQ7-oOlJo",
 			authDomain: "pdf-library-d47b7.firebaseapp.com",
 			databaseURL: "https://pdf-library-d47b7.firebaseio.com",
@@ -34,7 +34,7 @@ class Firebase {
 		};
 
 		let ui = new firebaseui.auth.AuthUI(firebase.auth());
-		ui.start('#firebase-modal #main-content', firebaseAuthConfig);
+		ui.start('#firebase-modal .modal-body', firebaseAuthConfig);
 	}
 
 	authenticate() {
