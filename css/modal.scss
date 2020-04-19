@@ -34,12 +34,14 @@
 .modal {
 
 	.modal-dialog {
+		display: flex;
 		margin: auto;
 		width: var(--modal-dialog-width);
 		justify-content: center;
 
 		.modal-content {
 			border: unset !important;
+			width: 100%;
 
 			.modal-body {
 				font-family: 'Spectral', serif !important;
