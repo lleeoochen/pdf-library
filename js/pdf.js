@@ -11,7 +11,7 @@ class PDFLoader {
 		this.pageNumPending = null;
 
 		this.pdfjsLib = window['pdfjs-dist/build/pdf'];
-		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ site.baseUrl }}/plugins/js/pdf/pdf.worker.js";
+		this.pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ site.pluginUrl }}/mozilla-pdf-worker/2.4.456.js";
 	}
 
 	async load(url) {

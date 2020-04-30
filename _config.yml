@@ -2,11 +2,9 @@
 title:       PDF Library
 description: A website that allows users to conveniently store and view PDF books and sheet music.
 
-url:         www.weitungchen.com # remote url  (github url)
-# url:         'localhost:4000' # local url
-
-baseUrl:     '/pdf-library' # local baseUrl (github repo name)
-# baseUrl:     '' # local baseUrl
+url:       'www.weitungchen.com'
+baseUrl:   '/web-chess'
+pluginUrl: 'https://weitungchen.com/plugins'
 
 # Build settings
 markdown: kramdown
