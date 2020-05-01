@@ -3,7 +3,7 @@ title:       PDF Library
 description: A website that allows users to conveniently store and view PDF books and sheet music.
 
 url:       'www.weitungchen.com'
-baseUrl:   '/web-chess'
+baseUrl:   '/pdf-library'
 pluginUrl: 'https://weitungchen.com/plugins'
 
 # Build settings
