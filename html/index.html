@@ -1,64 +1,55 @@
 ---
+layout: default
 permalink: /
 title: Home | PDF Library
 
 css:
-- "css/index.css"
+- "index.css"
 js:
-- "js/index.js"
+- "index.js"
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-{% include head.html %}
+<div id="main-content">
+	<div class="title"> PDF Library </div>
 
-<body>
-	<div id="main-content">
-		<div class="title"> PDF Library </div>
+	<div id="toolbar"></div>
 
-		<div id="toolbar"></div>
+	<div id="file-list"></div>
 
-		<div id="file-list"></div>
-
-		<div id="utility-section">
-			<div id="back-btn" class="btn utility-btn folder-link back-link"
-			     ondrop="drop(event, '..')"
-			     ondragover="allowDrop(event)"
-			     onclick="enterFolder('..')">
-				<img src="{{ site.baseUrl }}/assets/back.png" />
-			</div>
-			<div id="new-file-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/file.png" /></div>
-			<div id="new-folder-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/folder.png" /></div>
+	<div id="utility-section">
+		<div id="back-btn" class="btn utility-btn folder-link back-link"
+		     ondrop="drop(event, '..')"
+		     ondragover="allowDrop(event)"
+		     onclick="enterFolder('..')">
+			<img src="{{ site.baseUrl }}/assets/back.png" />
 		</div>
+		<div id="new-file-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/file.png" /></div>
+		<div id="new-folder-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/folder.png" /></div>
 	</div>
+</div>
 
+{% capture loading_modal %}
+	<div class="title"> Processing... </div>
+{% endcapture %}
 
-	{% capture loading_modal %}
-		<div class="title"> Processing... </div>
-	{% endcapture %}
+{% capture new_file_modal %}
+	<form id="upload-form" class="utility-form">
+		<label id="upload-label" class="form-control textfield" type="text" for="upload-file" readonly>
+			<div id="upload-label-text">Select File...</div>
+		</label>
+		<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
+		<button id="upload-btn" class="btn" type="submit">Upload</button>
+	</form>
+{% endcapture %}
 
-	{% capture new_file_modal %}
-		<form id="upload-form" class="utility-form">
-			<label id="upload-label" class="form-control textfield" type="text" for="upload-file" readonly>
-				<div id="upload-label-text">Select File...</div>
-			</label>
-			<input id="upload-file" class="form-control hidden" accept=".pdf" type="file" multiple>
-			<button id="upload-btn" class="btn" type="submit">Upload</button>
-		</form>
-	{% endcapture %}
+{% capture new_folder_modal %}
+	<form id="new-folder-form" class="utility-form">
+		<input id="new-folder-text" class="form-control textfield" type="text" placeholder="Folder name...">
+		<button class="btn" type="submit">New Folder</button>
+	</form>
+{% endcapture %}
 
-	{% capture new_folder_modal %}
-		<form id="new-folder-form" class="utility-form">
-			<input id="new-folder-text" class="form-control textfield" type="text" placeholder="Folder name...">
-			<button class="btn" type="submit">New Folder</button>
-		</form>
-	{% endcapture %}
-
-	{% include modal.html id="loading-modal"	content=loading_modal %}
-	{% include modal.html id="new-file-modal"	content=new_file_modal %}
-	{% include modal.html id="new-folder-modal" content=new_folder_modal %}
-	{% include modal.html id="firebase-modal" %}
-</body>
-
-{% include foot.html %}
-</html>
+{% include modal.html id="loading-modal"	content=loading_modal %}
+{% include modal.html id="new-file-modal"	content=new_file_modal %}
+{% include modal.html id="new-folder-modal" content=new_folder_modal %}
+{% include modal.html id="firebase-modal" %}

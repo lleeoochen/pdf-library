@@ -1,32 +1,24 @@
 ---
+layout: default
 permalink: /game
 title: View | PDF Library
 
 css:
-- "css/game.css"
+- "game.css"
 js:
-- "js/pdf.js"
-- "js/game.js"
+- "pdf.js"
+- "game.js"
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-{% include head.html %}
+<div id="main-content">
+	<div id="pdf-pages"></div>
 
-<body onresize="onResize()">
-	<div id="main-content">
-		<div id="pdf-pages"></div>
-
-		<div id="utility-section" class="fade-in">
-			<a id="home-btn" class="btn utility-btn" href="{{ site.baseUrl }}/"><img src="{{ site.baseUrl }}/assets/home.png" /></a>
-			<div id="zoom-in-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/plus.png" /></div>
-			<div id="full-screen-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/full-screen.png" /></div>
-			<div id="zoom-out-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/minus.png" /></div>
-		</div>
+	<div id="utility-section" class="fade-in">
+		<a id="home-btn" class="btn utility-btn" href="{{ site.baseUrl }}/"><img src="{{ site.baseUrl }}/assets/home.png" /></a>
+		<div id="zoom-in-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/plus.png" /></div>
+		<div id="full-screen-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/full-screen.png" /></div>
+		<div id="zoom-out-btn" class="btn utility-btn"><img src="{{ site.baseUrl }}/assets/minus.png" /></div>
 	</div>
+</div>
 
-	{% include modal.html id="firebase-modal" %}
-</body>
-
-{% include foot.html %}
-</html>
+{% include modal.html id="firebase-modal" %}
