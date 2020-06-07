@@ -8,14 +8,13 @@ class Firebase {
 
 		// Firebase Init
 		let firebaseConfig = {
-			apiKey: "AIzaSyD4lbQ9qEOXckuOxrGWp1ETZvmQ7-oOlJo",
-			authDomain: "pdf-library-d47b7.firebaseapp.com",
-			databaseURL: "https://pdf-library-d47b7.firebaseio.com",
-			projectId: "pdf-library-d47b7",
-			storageBucket: "pdf-library-d47b7.appspot.com",
-			messagingSenderId: "586656070466",
-			appId: "1:586656070466:web:66f579139b98a9d788a6db",
-			measurementId: "G-11Z8XRE9Y4"
+			apiKey: "AIzaSyAjnKviJftJE7M0a4ylnMeVpMjI8Y-uG_Q",
+			authDomain: "gamedb-f807e.firebaseapp.com",
+			databaseURL: "https://gamedb-f807e.firebaseio.com",
+			projectId: "gamedb-f807e",
+			storageBucket: "gamedb-f807e.appspot.com",
+			messagingSenderId: "364782423342",
+			appId: "1:364782423342:web:9f0c875b6e988527e3bebf"
 		};
 
 		firebase.initializeApp(firebaseConfig);

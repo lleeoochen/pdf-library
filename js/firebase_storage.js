@@ -2,7 +2,7 @@
 ---
 class FirebaseStorage {
 	constructor() {
-		this.storage = firebase.storage().ref();
+		this.storage = firebase.storage().ref().child('pdf_library');
 	}
 
 	list(path) {
