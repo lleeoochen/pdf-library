@@ -34,4 +34,8 @@ class FirebaseStorage {
 			});
 		});
 	}
+
+	getDownloadURL(filename) {
+		return this.storage.child(filename).getDownloadURL();
+	}
 }

@@ -2,9 +2,9 @@
 ---
 var auth_user;
 var database = new Firebase();
+var storage = new FirebaseStorage();
 var pdf_loader = new PDFLoader(container='pdf-pages')
 
-var storageRef;
 var filename = Util.getParam('file');
 var zoom_factor = 1.05;
 var idle_time = 0;
@@ -16,8 +16,7 @@ $('head title', window.parent.document).text(filename.split('/').pop().replace('
 database.authenticate().then(_auth_user => {
 	auth_user = _auth_user;
 
-	storageRef = firebase.storage().ref();
-	storageRef.child(filename).getDownloadURL().then(async url => {
+	storage.getDownloadURL(filename).then(async url => {
 		await pdf_loader.load(url);
 		loaded = true;
 	});

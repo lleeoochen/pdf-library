@@ -38,5 +38,5 @@
 6. To allow cors request to Firebase, run the following:
 
 	```
-	gsutil cors set cors.json gs://pdf-library-d47b7.appspot.com/
+	gsutil cors set cors.json gs://gamedb-f807e.appspot.com/
 	```
